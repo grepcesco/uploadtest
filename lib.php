@@ -72,6 +72,14 @@ function uploadtest_add_instance(stdClass $uploadtest, mod_uploadtest_mod_form $
 
     # You may have to add extra stuff in here #
 
+    if ($filename = $mform->get_new_filename('uploadtest')) {
+		if($mform->save_stored_file('uploadtest', $context->id, 'mod_uploadtest', 'content', 0, '/', $filename, 'true')) {
+            $csfovideo->uploadedfile = $filename;
+        } else {
+            error_log("Epic fail. Don't know why.");
+        }
+	}
+
     return $DB->insert_record('uploadtest', $uploadtest);
 }
 
